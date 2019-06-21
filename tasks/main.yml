@@ -1,0 +1,43 @@
+---
+# tasks file for ansible-role-nfs-server
+
+- name: Install NFS server.
+  apt:
+    name:
+      - nfs-common
+      - nfs-kernel-server
+    state: present
+    update_cache: yes
+
+- name: Ensure directories to export exist
+  file:
+    path: "{{ item.path }}"
+    state: directory
+  with_items: "{{ exports }}"
+
+- name: Set exports file
+  template:
+    src: exports.j2
+    dest: /etc/exports
+    owner: root
+    group: root
+    mode: 0644
+  notify: reload nfs
+
+- name: Set hosts.allow file
+  template:
+    src: hosts.allow.j2
+    dest: /etc/hosts.allow
+    owner: root
+    group: root
+    mode: 0644
+  notify: reload nfs
+
+- name: Set hosts.deny file
+  template:
+    src: hosts.deny.j2
+    dest: /etc/hosts.deny
+    owner: root
+    group: root
+    mode: 0644
+  notify: reload nfs
