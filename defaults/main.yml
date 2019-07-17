@@ -1,2 +1,13 @@
 ---
 # defaults file for ansible-role-nfs-server
+
+exports:
+  - path: /var/helloWorld
+    parameters: rw,secure,sync,no_subtree_check,no_root_squash
+    network: 192.168.0.0/255.255.255.0
+  - path: /var/foo
+    parameters: rw,secure,sync
+    network: 192.168.88.0/255.255.255.0
+  - path: /var/shared
+    parameters: rw,secure,sync
+    network: 200:20:1::/64
