@@ -1,38 +1,69 @@
-Role Name
+Ansible Role: NFS Server
 =========
 
-A brief description of the role goes here.
+Ansible role to install and configure NFS server.
+
+Through a simple list, you can indicate the directories to share, their NFS options, and the network that have access to them.
+
+Easy use of IPv6 addresses, brackets are added automatically when necessary using the `ipwrap` filter.
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+#### Ansible version:
+Ansible \>= 2.7
+
+#### Python libraries:
+- `netaddr` to use IP address filter.
+- `jmespath` to use JSON query filter.
+
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+```yaml
+exports:    # Full list of directories to export
+
+  - path: /var/helloWorld  # Complete path to the first directory to share
+    parameters: rw,secure,sync,no_subtree_check,no_root_squash  # NFS sharing options
+    network: 192.168.0.0/255.255.255.0 	# Network allowed to access to this directory
+
+  - path: /var/foo
+    parameters: rw,secure,sync
+    network: 192.168.88.0/255.255.255.0
+
+  - path: /var/shared
+    parameters: rw,secure,sync
+    network: 200:20:1::/64
+```
 
 Dependencies
 ------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+It doesn't depend on other roles.
 
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
-
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+```yaml
+- hosts: servers
+  roles:
+    - role: ansible-role-nfs-server
+      exports:
+        - path: /var/shared
+          parameters: rw,secure,sync
+          network: 200:20:1::/64
+```
 
 License
 -------
 
-BSD
+(c) Universidad de la República (UdelaR), Red de Unidades Informáticas de la UdelaR en el Interior.
+licenced under GPL-v3
 
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+[santiagomr](https://github.com/santiagomr)
+[@UdelaRInterior](https://github.com/UdelaRInterior)
+https://proyectos.interior.edu.uy/
