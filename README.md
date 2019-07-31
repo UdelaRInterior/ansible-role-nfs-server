@@ -64,6 +64,6 @@ licenced under GPL-v3
 Author Information
 ------------------
 
-[santiagomr](https://github.com/santiagomr)
+[@santiagomr](https://github.com/santiagomr)
 [@UdelaRInterior](https://github.com/UdelaRInterior)
 https://proyectos.interior.edu.uy/
