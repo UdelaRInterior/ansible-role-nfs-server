@@ -1,4 +1,5 @@
 galaxy_info:
+  role_name: nfs_server
   author: Santiago Martínez (@santiagomr)
   description: Ansible role to install and configure NFS server
   company: Red Unidades Informáticas UdelaR Interior (@UdelaRInterior)
