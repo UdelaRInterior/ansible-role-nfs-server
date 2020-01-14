@@ -10,5 +10,6 @@
 #
 
 {% for export in exports %}
-{{ export.path }} {{ export.network }}({{ export.parameters }})
+{{ export.path }} {% for network in export.networks %}{{ network }}({{ export.parameters }}) {% endfor %}
+
 {% endfor %}
